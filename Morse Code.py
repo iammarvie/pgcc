@@ -1,4 +1,10 @@
-MORSE_CODE_DICT = { 'A':'.-', 'B':'-...', 
+#This assignment is a project that would simply convert text into morse code.
+#At the start of the project you will see a dictionary of morse code to be accessed
+#Then, the text will be encrypted in morse assigning each value
+#It then proceedes to decrpyt the code and print it out
+
+
+MORSEDICT = { 'A':'.-', 'B':'-...', 
                     'C':'-.-.', 'D':'-..', 'E':'.', 
                     'F':'..-.', 'G':'--.', 'H':'....', 
                     'I':'..', 'J':'.---', 'K':'-.-', 
@@ -12,74 +18,59 @@ MORSE_CODE_DICT = { 'A':'.-', 'B':'-...',
                     '7':'--...', '8':'---..', '9':'----.', 
                     '0':'-----', ', ':'--..--', '.':'.-.-.-', 
                     '?':'..--..', '/':'-..-.', '-':'-....-', 
-                    '(':'-.--.', ')':'-.--.-'} 
-def encrypt(message): 
+                    '(':'-.--.', ')':'-.--.-', ' ': '- '} 
+def encrypt(text): 
     cipher = '' 
-    for letter in message: 
+    for letter in text: 
         if letter != ' ': 
-  
-            # Looks up the dictionary and adds the 
-            # correspponding morse code 
-            # along with a space to separate 
-            # morse codes for different characters 
-            cipher += MORSE_CODE_DICT[letter] + ' '
+            cipher += MORSEDICT[letter] + ' '
         else: 
-            # 1 space indicates different characters 
-            # and 2 indicates different words 
             cipher += ' '
   
     return cipher 
   
-# Function to decrypt the string 
-# from morse to english 
-def decrypt(message): 
-  
-    # extra space added at the end to access the 
-    # last morse code 
-    message += ' '
+
+def decrypt(text): 
+
+    text += ' '
   
     decipher = '' 
     citext = '' 
-    for letter in message: 
+    global i
+    for letter in text: 
   
-        # checks for space 
+        i = 0
         if (letter != ' '): 
   
-            # counter to keep track of space 
+
+           
             i = 0
   
-            # storing morse code of a single character 
             citext += letter 
   
-        # in case of space 
         else: 
-            # if i = 1 that indicates a new character 
+            
             i += 1
   
-            # if i = 2 that indicates a new word 
             if i == 2 : 
   
-                 # adding space to separate words 
                 decipher += ' '
             else: 
   
-                # accessing the keys using their values (reverse of encryption) 
-                decipher += list(MORSE_CODE_DICT.keys())[list(MORSE_CODE_DICT 
-                .values()).index(citext)] 
+                decipher += list(MORSEDICT.keys())[list(MORSEDICT 
+                .values()).index('- ')] 
                 citext = '' 
   
     return decipher 
   
-# Hard-coded driver function to run the program 
 def main(): 
-    message = input()
-    result = encrypt(message.upper()) 
+    text = input("Enter text here: ")
+    result = encrypt(text.upper()) 
+    print ("your text in morse code: "+result) 
+  
+    text = "  "
+    result = decrypt(text) 
     print (result) 
   
-    message = "  "
-    result = decrypt(message) 
-    print (result) 
-  
-# Executes the main function 
 if __name__ == '__main__': 
     main() 
